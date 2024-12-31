@@ -1,0 +1,26 @@
+{
+    "id": "A4C1B44C",
+    "path": "~/GITs/NZAE_research/grooming_code/setup_Rselenium.R",
+    "project_path": "grooming_code/setup_Rselenium.R",
+    "type": "r_source",
+    "hash": "957039067",
+    "contents": "",
+    "dirty": false,
+    "created": 1735686205198.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "22,65",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1735688284,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1735688284749,
+    "read_only": false,
+    "read_only_alternatives": []
+}
