@@ -30,7 +30,7 @@ library(highcharter)
 library(rvest)
 library(magrittr)
 library(rjson)
-
+library(RSelenium)
 
 ## load user defined functions 
 source("R/utility.R")
