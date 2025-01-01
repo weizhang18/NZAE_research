@@ -41,3 +41,16 @@ construct_girl_link_nzg <-
       
       return( unlist(tmp_list) )
    }
+
+
+## construct girls info from nzg
+construct_girl_info_nzg <-
+   function( girl_link, sleep_time = 2){
+      ## start page
+      remDr$navigate(girl_link)
+      Sys.sleep(sleep_time )
+      
+      ## get about me info
+      
+
+   }
