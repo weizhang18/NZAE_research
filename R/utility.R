@@ -51,6 +51,13 @@ construct_girl_info_nzg <-
       Sys.sleep(sleep_time )
       
       ## get about me info
+      about_me_element <- remDr$findElements(using = "css selector", ".row.gap")
       
+      ## find about me 
+      about_me_list <- lapply( about_me_element,
+                          function(i_girl){
+                             i_girl$getElementAttribute("href")
+                          } )
+      about_me[[3]]$getElementText()
 
    }
