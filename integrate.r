@@ -12,4 +12,9 @@ source("grooming_code/read_urls.R")
 source("grooming_code/construct_regional_links_nzg.R")
 
 ## construct all girls link from each region 
+source("grooming_code/construct_girls_links_nzg.R")
 
+
+## Close the web browser and stop the server 
+remDr$close()
+remote_driver$server$stop()
