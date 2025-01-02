@@ -11,7 +11,8 @@ local({
    
    
    ##
-   tmp_girl_list <- NULL
+   tmp_girl_abm_list <- NULL
+   tmp_gril_price_list <- NULL
    no_of_girls <- nrow(dtf_links_all_girls_cl)
    
    for(i in 1:no_of_girls){
@@ -21,13 +22,17 @@ local({
       tmp_girl_link <- 
          dtf_links_all_girls_cl$url_girl[i]
       
-      tmp_dtf_girl_about_me <-
+      tmp_dtf_girl_info <-
          construct_girl_info_nzg(tmp_girl_link, sleep_time = 0)
       
-      tmp_girl_list[[i]] <- 
+      tmp_girl_abm_list[[i]] <- 
          bind_cols(dtf_links_all_girls_cl[i,c("girl_id","region")],
-                   tmp_dtf_girl_about_me)
+                   tmp_dtf_girl_info[["about_me"]])
+      
+      tmp_gril_price_list[[i]] <-
+         tmp_dtf_girl_info[["price"]]
    }
    
-   dtf_girls_info <- bind_rows(tmp_girl_list)
+   dtf_girls_abm <- bind_rows(tmp_girl_abm_list)
+   
 })

@@ -50,37 +50,39 @@ construct_girl_info_nzg <-
       remDr$navigate(girl_link)
       Sys.sleep(sleep_time )
       
-      ## get about me info
-      about_me_element <- remDr$findElements(using = "css selector", ".row.gap")
-      
-      ## find about me 
-      about_me_text <-unlist(lapply( about_me_element,
-                              function(i_girl){
-                                 i_girl$getElementText()
-                              } ))
-      
-      ## to a data frame
-      tmp_abm <-
-         lapply(strsplit( about_me_text, "\n"),
-                function(i_abm){
-                   tmp_col <- i_abm[1]
-                   tmp_value <- i_abm[2]
-                   
-                   tmp_dtf <- as.data.frame(t(as.matrix(tmp_value)))
-                   colnames(tmp_dtf) <- tolower(tmp_col)
-                   
-                   return( tmp_dtf )
-                })  
-      
-      tmp_dtf_abm <- bind_cols(tmp_abm)
-      
+      ## test if the page has price info
       ## get price info
       price_element_raw <- 
          remDr$findElements(using = "css selector", ".price-list") 
       
-      if( length(price_element_raw) == 0 ){
-         tmp_dtf_price <- NULL
-      } else{
+      ## if price info is available
+      if( length(price_element_raw) >0 ){
+         ## get about me info
+         about_me_element <- remDr$findElements(using = "css selector", ".row.gap")
+         
+         ## find about me 
+         about_me_text <-unlist(lapply( about_me_element,
+                                        function(i_girl){
+                                           i_girl$getElementText()
+                                        } ))
+         
+         ## to a data frame
+         tmp_abm <-
+            lapply(strsplit( about_me_text, "\n"),
+                   function(i_abm){
+                      tmp_col <- i_abm[1]
+                      tmp_value <- i_abm[2]
+                      
+                      tmp_dtf <- as.data.frame(t(as.matrix(tmp_value)))
+                      colnames(tmp_dtf) <- tolower(tmp_col)
+                      
+                      return( tmp_dtf )
+                   })  
+         
+         tmp_dtf_abm <- bind_cols(tmp_abm)
+         
+         
+         ## get price info
          price_element <- 
             price_element_raw[[1]]$findChildElements("css selector", ".row")
          
@@ -90,22 +92,22 @@ construct_girl_info_nzg <-
                                         i_price$getElementText()
                                      } ))
          
-         ## to a data frame
-         tmp_price <-
-            lapply(strsplit( price_text, "\n"),
-                   function(i_price){
-                      tmp_col <- i_price[1]
-                      tmp_value <- i_price[2]
-                      
-                      tmp_dtf <- as.data.frame(t(as.matrix(tmp_value)))
-                      colnames(tmp_dtf) <- tolower(tmp_col)
-                      
-                      return( tmp_dtf )
-                   })  
-         
-         tmp_dtf_price <- bind_cols(tmp_price)  
+         # ## to a data frame
+         # tmp_price <-
+         #    lapply(strsplit( price_text, "\n"),
+         #           function(i_price){
+         #              tmp_col <- i_price[1]
+         #              tmp_value <- i_price[2]
+         #              
+         #              tmp_dtf <- as.data.frame(t(as.matrix(tmp_value)))
+         #              colnames(tmp_dtf) <- tolower(tmp_col)
+         #              
+         #              return( tmp_dtf )
+         #           })  
+         # 
+         # tmp_dtf_price <- bind_cols(tmp_price)  
       }
       
-      return( bind_cols(tmp_dtf_girl_about_me,
-                        tmp_dtf_price) )
+      return( list( about_me =  tmp_dtf_abm,
+                    price = price_text ) )
    }
