@@ -81,6 +81,29 @@ construct_girl_info_nzg <-
          
          tmp_dtf_abm <- bind_cols(tmp_abm)
          
+         ## get phone number
+         phone <- 
+            remDr$findElements(using = "css selector", ".button.btn-large.red")[[1]]$getElementText()[[1]]
+         
+         ## put phone number in
+         tmp_dtf_abm <-
+            tmp_dtf_abm %>% 
+            bind_cols( data.frame(phone = phone) )
+         
+         
+         ## get all image href for future needs
+         pictures_elem <- 
+            remDr$findElements(using = "css selector", ".photo-box.resp-img")
+         
+         pic_links <- 
+         lapply(pictures_elem , 
+                function(i_pic){
+                   tmp_link <- 
+                      i_pic$findChildElements(using = "tag name", value = "img" )[[1]]$getElementAttribute("src")[[1]]
+                   
+                   return(tmp_link)
+                }
+               )
          
          ## get price info
          price_element <- 
